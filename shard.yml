@@ -1,7 +1,7 @@
 name: hangman
 version: 0.1.0
 
-authors:
-  -  <>
-
-license: MIT
+dependencies:
+  slack:
+    github: manastech/crystal_slack
+    version: "~> 0.7.0"
