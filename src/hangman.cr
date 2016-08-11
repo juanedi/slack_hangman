@@ -1,5 +1,8 @@
-require "./hangman/*"
+require "./**"
+require "logger"
 
 module Hangman
-  # TODO Put your code here
+  extend self
+
+  delegate logger, to: Hangman::Logging
 end
