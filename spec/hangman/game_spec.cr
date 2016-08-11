@@ -142,4 +142,14 @@ describe Hangman::Game do
 
     expect_raises { game.try_letter 'e' }
   end
+
+  it "informs a hint with succesfull attempts" do
+    game = Hangman::Game.new("redundant")
+
+    game.try_letter 'r'
+    game.try_letter 'd'
+    game.try_letter 'x'
+
+    game.hint.should eq(['R', nil, 'D', nil, nil, 'D', nil, nil, nil])
+  end
 end

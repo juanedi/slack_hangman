@@ -51,6 +51,24 @@ class Hangman::Game
     drawing_state == DrawingState::TwoLegs
   end
 
+  def draw
+    Drawing.ascii(drawing_state)
+  end
+
+  def hint
+    ret = [] of Char?
+
+    @word.chars.each do |c|
+      if attempts.includes? c
+        ret << c
+      else
+        ret << nil
+      end
+    end
+
+    ret
+  end
+
   private def validate_word
     raise "Word must not be empty" if @word.empty?
 
