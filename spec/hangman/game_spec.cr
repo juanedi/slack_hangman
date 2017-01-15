@@ -35,7 +35,7 @@ describe Hangman::Game do
   describe "successful attempt" do
     it "returns true" do
       game = Hangman::Game.new("hello")
-      game.try_letter('j').should eq(false)
+      game.try_letter('e').should eq(true)
     end
 
     it "is tracked" do
@@ -112,7 +112,7 @@ describe Hangman::Game do
       game.is_defeat?.should eq(false)
     end
 
-    it "ends with defeat if word is poor man is hung" do
+    it "ends with defeat if poor man is hung" do
       game = Hangman::Game.new("hello")
 
       game.try_letter 'j'
@@ -125,6 +125,19 @@ describe Hangman::Game do
       game.finished?.should eq(true)
       game.is_victory?.should eq(false)
       game.is_defeat?.should eq(true)
+    end
+
+    it "recognizes victory even if there were failed attempts" do
+      # bugfix
+      game = Hangman::Game.new("here")
+
+      game.try_letter 'i'
+
+      game.try_letter 'h'
+      game.try_letter 'e'
+      game.try_letter 'r'
+
+      game.finished?.should eq(true)
     end
 
     it "does not accept new attempts after finished" do

@@ -44,7 +44,7 @@ class Hangman::Game
   end
 
   def is_victory?
-    attempts.sort == @word.chars.uniq.sort
+    successful_attempts.sort == @word.chars.uniq.sort
   end
 
   def is_defeat?
@@ -75,5 +75,9 @@ class Hangman::Game
     unless @word.chars.all? { |c| VALID_CHARS.includes? c }
       raise "Word contains unknown characters"
     end
+  end
+
+  private def successful_attempts
+    attempts & @word.chars.uniq
   end
 end
