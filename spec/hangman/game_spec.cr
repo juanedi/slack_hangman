@@ -26,7 +26,7 @@ describe Hangman::Game do
       game.attempts.should eq([] of Char)
     end
 
-    it "is not considered finished when just after starting" do
+    it "is not considered finished just after starting" do
       game = Hangman::Game.new("hello")
       game.finished?.should eq(false)
     end
