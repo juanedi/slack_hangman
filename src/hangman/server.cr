@@ -4,7 +4,9 @@ require "slack"
 class Hangman::Server
   delegate listen, close, to: @server
 
-  def initialize(host, port)
+  def initialize(host, port, slack_oauth_token)
+    @command_handler = Hangman::Slack::CommandHandler.new(slack_oauth_token)
+
     @server = HTTP::Server.new(host, port) do |context|
       begin
         handle_request context
@@ -63,7 +65,7 @@ class Hangman::Server
       return context
     end
 
-    Hangman::Slack::Commands.handle(slash_command)
+    @command_handler.handle(slash_command)
     context.response.status_code = 200
     context.response.print("Starting game...")
   end

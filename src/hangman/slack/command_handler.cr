@@ -1,7 +1,7 @@
-module Hangman::Slack::Commands
-  extend self
-
-  @@api = ::Slack::API.new(ENV["SLACK_OAUTH_TOKEN"])
+class Hangman::Slack::CommandHandler
+  def initialize(oauth_token : String)
+    @api = ::Slack::API.new(oauth_token)
+  end
 
   def handle(command)
     spawn { start_game(command) }
@@ -43,6 +43,6 @@ module Hangman::Slack::Commands
       attachments: attachments.map { |a| JSON.parse(a.to_json) }
     )
 
-    message.post_with_api(@@api)
+    message.post_with_api(@api)
   end
 end
